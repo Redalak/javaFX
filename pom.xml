@@ -49,6 +49,7 @@
                 <configuration>
                     <source>23</source>
                     <target>23</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -60,7 +61,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>appli.todolistfx/appli.StartApplication</mainClass>
+                            <mainClass>appli.todolistfx/appli.appli.StartApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

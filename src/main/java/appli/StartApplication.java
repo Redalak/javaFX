@@ -4,21 +4,33 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class StartApplication extends Application {
+    private static Stage mainStage;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 400);
-        stage.setTitle("page de connection");
-        stage.setScene(scene);
-        stage.show();
-
+        mainStage = stage;
+        FXMLLoader fxmlLoader = new
+                FXMLLoader(StartApplication.class.getResource("accueil/LoginView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        mainStage.setTitle("inscription!");
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+    public static void changeScene(String nomDuFichierFxml ) throws IOException {
+        FXMLLoader fxmlLoader = new
+                FXMLLoader(StartApplication.class.getResource(nomDuFichierFxml + "View.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        mainStage.setScene(scene);
     }
 
     public static void main(String[] args) {
-        launch();
+    launch();
     }
 }
+
+
+
