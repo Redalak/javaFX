@@ -6,12 +6,15 @@ import model.Utilisateur;
 import model.UtilisateurListe;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UtilisateurRepository {
     private Connection connexion;
+
     public UtilisateurRepository() {
         this.connexion = Database.getConnexion();
     }
+
     public void inscription(Utilisateur utilisateur) {
         String sql = "INSERT INTO utilisateur (nom, prenom, email, mdp) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -45,8 +48,7 @@ public class UtilisateurRepository {
                 );
             }
 
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Erreur");
         }
     }
@@ -70,10 +72,21 @@ public class UtilisateurRepository {
                 return userCo;
             }
 
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Erreur lors de l'ajout de l'utilisateur : " + e.getMessage());
         }
+    }
+
+    public ArrayList<Utilisateur> getTousLesUtilisateurs() {
+        String sql = "SELECT * FROM utilisateur";
+        try {
+            PreparedStatement stmt = Utilisateur.prepareStatement(sql);
+            ResultSet infoRecup = stmt.executeQuery();
+            ArrayList<Utilisateur> inscrit = new ArrayList<>();
+            return inscrit;
+        }
+
+
     }
 
 }
