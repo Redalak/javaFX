@@ -35,7 +35,11 @@ public class InscriptionController {
 
     @FXML
     void btnInscription(ActionEvent event) throws IOException{
-        if (prenom.getText().isEmpty() || nom.getText().isEmpty() || mdpInscription.getText().isEmpty() || mdpConfirmationInscription.getText().isEmpty() || mdpInscription.getText().isEmpty() || emailInscription.getText().isEmpty()) {
+        UtilisateurRepository userepo = new UtilisateurRepository();
+        Utilisateur user = userepo.recupererUserParEmail(emailInscription.getText());
+        if (emailInscription.getText().equals(user.getEmail()){
+            erreurIn.setText("email deja utilise");
+        } else if (prenom.getText().isEmpty() || nom.getText().isEmpty() || mdpInscription.getText().isEmpty() || mdpConfirmationInscription.getText().isEmpty() || mdpInscription.getText().isEmpty() || emailInscription.getText().isEmpty()) {
             erreurIn.setText("Veuillez remplir tous les champs");
         } else if (!mdpConfirmationInscription.getText().equals(mdpInscription.getText())) {
             erreurIn.setText("Les mots de passe ne correspondent pas");
