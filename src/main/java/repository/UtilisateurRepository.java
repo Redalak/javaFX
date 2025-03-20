@@ -16,7 +16,7 @@ public class UtilisateurRepository {
     }
 
     public void inscription(Utilisateur utilisateur) {
-        String sql = "INSERT INTO utilisateur (nom, prenom, email, mdp) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = cnx.prepareStatement(sql);
             stmt.setString(1, utilisateur.getNom());
@@ -32,14 +32,15 @@ public class UtilisateurRepository {
     }
 
 
-    public void recupererUserParEmail(String email) {
+    public Utilisateur recupererUserParEmail(String email) {
         String sql = "SELECT * FROM utilisateur WHERE email = ?";
+        Utilisateur user = null;
         try {
             PreparedStatement stmt = cnx.prepareStatement(sql);
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Utilisateur user = new Utilisateur(
+                user = new Utilisateur(
                        rs.getInt("id_utilisateur"),
                        rs.getString("nom"),
                        rs.getString("prenom"),
@@ -50,31 +51,7 @@ public class UtilisateurRepository {
             }
 
         } catch (SQLException e) {
-            System.out.println("Erreur");
-        }
-    }
-
-    public Utilisateur connexion(Utilisateur user) {
-        String sql = "SELECT * FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
-        try {
-            PreparedStatement stmt = cnx.prepareStatement(sql);
-            stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getMdp());
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Utilisateur userr= new Utilisateur(
-                        rs.getInt("id_utilisateur"),
-                        rs.getString("nom"),
-                        rs.getString("prenom"),
-                        rs.getString("email"),
-                        rs.getString("mot_de_passe"),
-                        rs.getString("role")
-                );
-
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de l'ajout de l'utilisateur : " + e.getMessage());
+            System.out.println("Erreur" + e.getMessage());
         }
         return user;
     }
